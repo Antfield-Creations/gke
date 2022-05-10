@@ -29,11 +29,7 @@ spec:
       
         server:
           ingress:
-            enabled: true
-            hosts:
-              - *ref_argoServerHost
-            paths:
-              - /
+            enabled: false
       
           extraArgs:
             # Disable dev-mode authentication
