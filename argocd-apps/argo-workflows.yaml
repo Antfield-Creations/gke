@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -59,13 +60,13 @@ spec:
             # enable archiving of old workflows
             archive: true
             postgresql:
-              host: argo-postgresql
+              host: operators-postgresql
               port: 5432
               database: postgres
               tableName: argo_workflows
               # the database secrets must be in the same namespace of the controller
               userNameSecret:
-                name: argo-postgresql
+                name: operators-postgresql
                 # NOTE that since we went with "postgres" as user, we only get a password secret, which is the same as the user
                 key: postgresql-password
               passwordSecret:
