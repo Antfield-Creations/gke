@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: operators-postgresql
+  namespace: operators
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: operators
+    server: https://kubernetes.default.svc
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+
+  source:
+    targetRevision: 11.1.28
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    helm:
+      values: |
+        resources:
+          requests:
+            memory: 64Mi
+
+        postgresqlUsername: postgres
