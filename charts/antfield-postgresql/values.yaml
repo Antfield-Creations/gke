@@ -1,0 +1,4 @@
+postgresql:
+  auth:
+    existingSecret:
+      operators-postgresql-secret
