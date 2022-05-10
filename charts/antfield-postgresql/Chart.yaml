@@ -27,4 +27,4 @@ dependencies:
   - name: postgresql
     version: 11.1.28
     repository: https://charts.bitnami.com/bitnami
-    condition: postgresq.enabled
+    condition: postgresql.enabled
