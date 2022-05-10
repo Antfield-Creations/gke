@@ -17,9 +17,9 @@ spec:
       prune: true
 
   source:
-    targetRevision: 11.1.28
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: postgresql
+    targetRevision: HEAD
+    repoURL: https://github.com/Antfield-Creations/gke
+    path: charts/antfield-postgresql
     helm:
       values: |
         resources:
