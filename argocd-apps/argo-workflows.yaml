@@ -66,11 +66,11 @@ spec:
               tableName: argo_workflows
               # the database secrets must be in the same namespace of the controller
               userNameSecret:
-                name: operators-postgresql
+                name: operators-postgresql-secret
                 # NOTE that since we went with "postgres" as user, we only get a password secret, which is the same as the user
-                key: postgresql-password
+                key: postgresql-user
               passwordSecret:
-                name: argo-postgresql
+                name: operators-postgresql-secret
                 key: postgresql-password
       
         # Set up logging artifact repo in minio s3 bucket
