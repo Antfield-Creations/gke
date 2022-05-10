@@ -1,0 +1,100 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: operators
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: operations
+    server: https://kubernetes.default.svc
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+
+  source:
+    targetRevision: HEAD
+    repoURL: https://argoproj.github.io/argo-helm
+    helm:
+      values: |
+        workflow:
+          rbac:
+            create: true
+          serviceAccount:
+            create: true
+      
+        server:
+          ingress:
+            enabled: true
+            hosts:
+              - *ref_argoServerHost
+            paths:
+              - /
+      
+          extraArgs:
+            # Disable dev-mode authentication
+            - --auth-mode=server
+      
+          secure: false
+      
+        controller:
+          # See also https://github.com/argoproj/argo-helm/tree/master/charts/argo-workflows#workflow-controller-1
+          containerRuntimeExecutor: emissary
+      
+          workflowNamespaces:
+            - operators
+            - data
+      
+          workflowDefaults:
+            archiveLogs: true
+            serviceAccountName: argo-workflow
+      
+          # Set up database connection details for workflow archive
+          persistence:
+            connectionPool:
+              maxIdleConns: 10
+              maxOpenConns: 50
+            # save the entire workflow into etcd and DB
+            nodeStatusOffLoad: false
+            # enable archiving of old workflows
+            archive: true
+            postgresql:
+              host: argo-postgresql
+              port: 5432
+              database: postgres
+              tableName: argo_workflows
+              # the database secrets must be in the same namespace of the controller
+              userNameSecret:
+                name: argo-postgresql
+                # NOTE that since we went with "postgres" as user, we only get a password secret, which is the same as the user
+                key: postgresql-password
+              passwordSecret:
+                name: argo-postgresql
+                key: postgresql-password
+      
+        # Set up logging artifact repo in minio s3 bucket
+        # -- Influences the creation of the ConfigMap for the workflow-controller itself.
+        useDefaultArtifactRepo: true
+        # -- Use static credentials for S3 (eg. when not using AWS IRSA)
+        useStaticCredentials: true
+        artifactRepository:
+          # -- Archive the main container logs as an artifact
+          archiveLogs: true
+          # -- Store artifact in a S3-compliant object store
+          # @default -- See [values.yaml]
+          gcs:
+            # Note the `key` attribute is not the actual secret, it's the PATH to
+            # the contents in the associated secret, as defined by the `name` attribute.
+            serviceAccountKeySecret:
+              name: gcs-secret
+              key: serviceAccountKey
+            bucket: antfield
+            keyFormat: "logs\
+                    /{{workflow.creationTimestamp.Y}}\
+                    /{{workflow.creationTimestamp.m}}\
+                    /{{workflow.creationTimestamp.d}}\
+                    /{{workflow.name}}\
+                    /{{pod.name}}"
