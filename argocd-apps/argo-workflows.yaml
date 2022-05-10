@@ -68,10 +68,10 @@ spec:
               userNameSecret:
                 name: operators-postgresql-secret
                 # NOTE that since we went with "postgres" as user, we only get a password secret, which is the same as the user
-                key: postgresql-user
+                key: postgres-user
               passwordSecret:
                 name: operators-postgresql-secret
-                key: postgresql-password
+                key: postgres-password
       
         # Set up logging artifact repo in minio s3 bucket
         # -- Influences the creation of the ConfigMap for the workflow-controller itself.
