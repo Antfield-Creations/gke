@@ -8,3 +8,6 @@ cd-update:
 
 cd-tunnel:
 	kubectl -n operators port-forward svc/antfield-argocd-server 8082:80
+
+pg-tunnel:
+	kubectl -n operators port-forward svc/operators-postgresql 5432:5432
