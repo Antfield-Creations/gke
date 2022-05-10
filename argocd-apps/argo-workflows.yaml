@@ -16,6 +16,7 @@ spec:
       prune: true
 
   source:
+    targetRevision: 0.15.0
     repoURL: https://argoproj.github.io/argo-helm
     chart: argo-workflows
     helm:
