@@ -2,6 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
+  name: ml-workflow-template-generic
   generateName: ml-workflow-
 spec:
   serviceAccountName: argo-workflow
