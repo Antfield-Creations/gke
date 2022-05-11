@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ml-workflow
+  namespace: operators
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: data
+    server: https://kubernetes.default.svc
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+
+  source:
+    targetRevision: 0.1.0
+    repoURL: https://github.com/Antfield-Creations/gke
+    chart: charts/antfield-ml-operator

@@ -11,3 +11,9 @@ cd-tunnel:
 
 pg-tunnel:
 	kubectl -n operators port-forward svc/operators-postgresql 5432:5432
+
+gcs-secrets:
+	- kubectl -n operators create secret generic gcs-secret \
+		--from-file=serviceAccountKey=/home/rein/Nextcloud/Documents/fafa-vae-0102b4da1611.json
+	- kubectl -n data create secret generic gcs-secret \
+		--from-file=serviceAccountKey=/home/rein/Nextcloud/Documents/fafa-vae-0102b4da1611.json

@@ -1,0 +1,19 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  generateName: ml-workflow-
+spec:
+  serviceAccountName: argo-workflow
+  tolerations:
+    - key: nvidia.com/gpu
+      value: present
+      effect: NoSchedule
+  nodeSelector:
+    cloud.google.com/gke-nodepool: gpu-pool
+
+  templates:
+    - name: main
+      container:
+        image: tensorflow/tensorflow:2.7.1-gpu
+        command: [python, -c, 'import tensorflow']
