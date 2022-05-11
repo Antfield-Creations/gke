@@ -19,4 +19,4 @@ spec:
   source:
     targetRevision: 0.1.0
     repoURL: https://github.com/Antfield-Creations/gke
-    chart: charts/antfield-ml-operator
+    path: charts/antfield-ml-operator
