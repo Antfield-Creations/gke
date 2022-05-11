@@ -17,6 +17,6 @@ spec:
       prune: true
 
   source:
-    targetRevision: 0.1.0
+    targetRevision: HEAD
     repoURL: https://github.com/Antfield-Creations/gke
     path: charts/antfield-ml-operator
