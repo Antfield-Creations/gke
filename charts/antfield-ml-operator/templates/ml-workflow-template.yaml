@@ -2,8 +2,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: ml-workflow-template-generic
-  generateName: ml-workflow-
+  name: tensorflow-check
+  generateName: tensorflow-check-
 spec:
   serviceAccountName: argo-workflow
   tolerations:
@@ -13,8 +13,20 @@ spec:
   nodeSelector:
     cloud.google.com/gke-nodepool: gpu-pool
 
+  entrypoint: main
+
   templates:
     - name: main
-      container:
+      script:
         image: tensorflow/tensorflow:2.7.1-gpu
-        command: [python, -c, 'import tensorflow']
+        command: [python]
+        source: |
+          import tensorflow as tf
+          devices = tf.config.list_physical_devices('GPU')
+
+          if len(devices) == 0:
+            raise RuntimeError('No GPUs found')
+
+          for device in devices:
+            print(device)
+
