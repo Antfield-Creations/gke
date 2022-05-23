@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ml-workflow
+  name: mlops-operator
   namespace: operators
   finalizers:
     - resources-finalizer.argocd.argoproj.io
