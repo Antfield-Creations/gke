@@ -1,1 +1,0 @@
-You have deployed {{.Chart.Name}} {{.Chart.Version }}
