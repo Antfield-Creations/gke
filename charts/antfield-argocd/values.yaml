@@ -41,6 +41,10 @@ argo-cd:
 
   configs:
     repositories:
+      fafa-helm-repo:
+        type: git
+        url: https://github.com/Antfield-Creations/fafa-vae
+        path: charts
       antfield-helm-repo:
         type: git
         url: https://github.com/Antfield-Creations/gke
