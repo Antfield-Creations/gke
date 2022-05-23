@@ -1,0 +1,8 @@
+argo-events:
+  enable: true
+
+  eventBuses:
+    - name: eventbus-default
+      namespace: data
+    - name: eventbus-default
+      namespace: operators

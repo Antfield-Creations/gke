@@ -23,7 +23,7 @@ argo-cd:
             valueFiles:
               - values.yaml
           path: charts/antfield-argocd
-          repoURL: https://github.com/Antfield-Creations/gke
+          repoURL: https://github.com/Antfield-Creations/gke.git
 
       - name: argocd-apps
         namespace: operators

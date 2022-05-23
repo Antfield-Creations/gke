@@ -1,0 +1,18 @@
+# https://raw.githubusercontent.com/argoproj/argo-events/master/manifests/base/crds/argoproj.io_eventbus.yaml
+{{- if index .Values "argo-events" "enabled" }}
+  {{- range $eventBus := index .Values "argo-events" "eventBuses" }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: EventBus
+metadata:
+  namespace: {{ $eventBus.namespace }}
+  name: {{ $eventBus.name }}
+spec:
+  nats:
+    native:
+      # Optional, defaults to 3. If it is < 3, set it to 3, that is the minimal requirement.
+      replicas: 3
+      # Optional, auth strategy, "none" or "token", defaults to "none"
+      auth: none
+  {{- end }}
+{{- end }}
