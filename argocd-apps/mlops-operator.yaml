@@ -19,4 +19,4 @@ spec:
   source:
     targetRevision: HEAD
     repoURL: https://github.com/Antfield-Creations/fafa-vae
-    path: charts/argo-mlops-operator
+    path: argo-mlops-operator
