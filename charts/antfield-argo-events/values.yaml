@@ -2,7 +2,7 @@ argo-events:
   enabled: true
 
   eventBuses:
-    - name: eventbus-default
+    - name: argomlops-default
       namespace: data
-    - name: eventbus-default
+    - name: argomlops-default
       namespace: operators
