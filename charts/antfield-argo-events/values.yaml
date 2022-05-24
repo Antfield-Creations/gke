@@ -1,8 +1,8 @@
 argo-events:
   enabled: true
 
-  eventBuses:
-    - name: argomlops-default
-      namespace: data
-    - name: argomlops-default
-      namespace: operators
+eventBuses:
+  - name: argomlops-default
+    namespace: data
+  - name: argomlops-default
+    namespace: operators

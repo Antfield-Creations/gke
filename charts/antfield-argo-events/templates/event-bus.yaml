@@ -1,6 +1,6 @@
 # https://raw.githubusercontent.com/argoproj/argo-events/master/manifests/base/crds/argoproj.io_eventbus.yaml
 {{- if index .Values "argo-events" "enabled" }}
-  {{- range $eventBus := index .Values "argo-events" "eventBuses" }}
+  {{- range $eventBus := $.Values.eventBuses }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: EventBus
