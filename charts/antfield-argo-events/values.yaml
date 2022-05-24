@@ -1,5 +1,5 @@
 argo-events:
-  enable: true
+  enabled: true
 
   eventBuses:
     - name: eventbus-default
