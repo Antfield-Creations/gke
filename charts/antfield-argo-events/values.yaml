@@ -3,7 +3,6 @@ argo-events:
   singleNamespace: false
   additionalSaNamespaces:
     - data
-    - operators
 
 eventBuses:
   - name: argomlops-default
