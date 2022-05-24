@@ -1,5 +1,9 @@
 argo-events:
   enabled: true
+  singleNamespace: false
+  additionalSaNamespaces:
+    - data
+    - operators
 
 eventBuses:
   - name: argomlops-default
