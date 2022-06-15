@@ -51,6 +51,8 @@ spec:
             serviceAccountName: argo-workflow
             podGC:
               strategy: OnWorkflowCompletion
+            ttlStrategy:
+              secondsAfterCompletion: 60
       
           # Set up database connection details for workflow archive
           persistence:
