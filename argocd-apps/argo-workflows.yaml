@@ -49,6 +49,8 @@ spec:
           workflowDefaults:
             archiveLogs: true
             serviceAccountName: argo-workflow
+            podGC:
+              strategy: OnWorkflowCompletion
       
           # Set up database connection details for workflow archive
           persistence:
