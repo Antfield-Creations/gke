@@ -1,3 +1,18 @@
+BINDIR ?= ~/.local/bin
+
+tools: kubectl helm
+
+kubectl:
+	# Install kubectl
+	curl -fSL "https://dl.k8s.io/release/$(shell curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o ${BINDIR}/kubectl
+	chmod +x ${BINDIR}/kubectl
+	- kubectl version
+
+helm:
+	# Install helm
+	USE_SUDO=false HELM_INSTALL_DIR=${BINDIR} curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+	helm version
+
 cd:
 	helm dependency update charts/antfield-argocd
 	helm --namespace=operators install antfield-argocd charts/antfield-argocd
