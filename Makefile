@@ -4,9 +4,9 @@ tools: kubectl helm
 
 kubectl:
 	# Install kubectl
-	curl -fSL "https://dl.k8s.io/release/$(shell curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o ${BINDIR}/kubectl
-	chmod +x ${BINDIR}/kubectl
-	- kubectl version
+	which kubectl || curl -fSL "https://dl.k8s.io/release/$(shell curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o ${BINDIR}/kubectl
+	which kubectl || chmod +x ${BINDIR}/kubectl
+	kubectl version --client
 
 helm:
 	# Install helm
