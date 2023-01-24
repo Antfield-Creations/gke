@@ -1,16 +1,22 @@
 BINDIR ?= ~/.local/bin
+GCLOUDDIR ?= ~/.local/google-cloud-sdk
 
 tools: kubectl helm
 
+gcloud-sdk:
+	which gcloud || curl https://sdk.cloud.google.com > /tmp/install.sh && \
+		bash install.sh --install-dir=${GCLOUDDIR} && \
+		rm /tmp/install.sh
+
 kubectl:
-	# Install kubectl
-	which kubectl || curl -fSL "https://dl.k8s.io/release/$(shell curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o ${BINDIR}/kubectl
-	which kubectl || chmod +x ${BINDIR}/kubectl
+	# kubectl needs to be installed using the gcloud cli in order to enable the gke-gcloud-auth-plugin
+	gcloud components install kubectl
 	kubectl version --client
 
 helm:
 	# Install helm
-	USE_SUDO=false HELM_INSTALL_DIR=${BINDIR} curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+	curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 > /tmp/install.sh && \
+		HELM_INSTALL_DIR=${BINDIR} bash /tmp/install.sh --no-sudo
 	helm version
 
 cd:
