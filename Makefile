@@ -5,9 +5,10 @@ tools: kubectl helm
 
 gcloud-sdk:
 	which gcloud || curl https://sdk.cloud.google.com > /tmp/install.sh && \
-		bash install.sh --install-dir=${GCLOUDDIR} && \
-		rm /tmp/install.sh
-
+		bash /tmp/install.sh --install-dir=${GCLOUDDIR} && \
+		rm /tmp/install.sh && \
+		gcloud auth login
+		
 kubectl:
 	# kubectl needs to be installed using the gcloud cli in order to enable the gke-gcloud-auth-plugin
 	gcloud components install kubectl
